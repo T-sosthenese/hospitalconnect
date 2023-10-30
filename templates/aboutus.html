@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>hospitalconnect</title>
+  <style media="screen">
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .jumbotron {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .alert {
+      margin: 0;
+      text-align: center;
+    }
+  </style>
+  <title>sumit</title>
+</head>
+
+<body>
+  {% include "navbar.html" %}
+  <div class="jumbotron">
+    <h3 class='alert alert-success'>About Us!</h3>
+    <h1 class="display-4">Hello</h1>
+    <p class="lead">
+        We are hospital management team.
+        A web service dedicated to connecting users to healthcare facilities in the community.
+    </p>
+    <hr class="my-4">
+    <p>Take a look at our features.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/" role="button">HOME</a>
+    </p>
+  </div>
+</body>
+
+</html>

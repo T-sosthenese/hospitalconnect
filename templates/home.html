@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+<style media="screen">
+    .jumbotron {
+        margin-top: 0;
+        margin-bottom: 0;
+        background-image: url('{% static "images/background.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh; /* Set the height of the jumbotron to the full viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .glow {
+        font-size: 50px;
+        color: white;
+        animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+        }
+        to {
+            text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        }
+    }
+
+    h3 {
+        margin-bottom: 20px; /* Add space between "Emergency ?" and the button */
+        color: red;
+    }
+
+    .lead {
+        margin: 0; /* Reset margin for the lead class */
+    }
+</style>
+
+<div class="jumbotron">
+    <h5 class="display-3 glow">All your health needs at your fingertips!</h5>
+    <h3>Emergency ?</h3>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/patientclick" role="button">Take Appointment</a>
+    </p>
+</div>
+{% endblock content %}

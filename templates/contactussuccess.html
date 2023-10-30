@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>hospitalconnect</title>
+  <style media="screen">
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .jumbotron {
+      text-align: center;
+      max-width: 600px;
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "navbar.html" %}
+  <br><br>
+  <div class="jumbotron">
+    <h1 class="display-4">Thank you for reaching out to us !</h1>
+    <p class="lead">We will contact you soon</p>
+    <hr class="my-4">
+    <p>Explore some interesting features on our website!</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/" role="button">HOME</a>
+    </p>
+  </div>
+</body>
+
+</html>
