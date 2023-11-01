@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'appointment.apps.AppointmentConfig',
     'medicalrecords.apps.MedicalrecordsConfig',
+    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
