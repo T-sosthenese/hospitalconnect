@@ -3,7 +3,9 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    pass
+    is_admin = models.BooleanField("is admin", default=False)
+    is_doctor = models.BooleanField("is doctor", default=False)
+    is_patient = models.BooleanField("is patient", default=False)
     
 
 departments = [

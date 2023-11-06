@@ -57,9 +57,9 @@ def admin_signup_view(request):
     return render(request, 'users/adminsignup.html', {'form': form})
 
 
-def admin_login_view(request):
+def login_view(request, form_class, template_name, redirect_url):
     if request.method == "POST":
-        form = forms.AdminLoginForm(request.POST)
+        form = form_class(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -67,15 +67,21 @@ def admin_login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("admin-dashboard")
+                return redirect(redirect_url)
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     else:
-        form = forms.AdminLoginForm()
+        form = form_class()
 
-    return render(request=request, template_name="users/adminlogin.html", context={"login_form": form})
+    return render(request=request, template_name=template_name, context={"login_form": form})
+
+def admin_login_view(request):
+    return login_view(request, forms.AdminLoginForm, "users/adminlogin.html", "admin-dashboard")
+
+def doctorlogin_view(request):
+    return login_view(request, forms.DoctorLoginForm, "users/doctorlogin.html", "doctor-dashboard")
 
 def admin_dashboard_view(request):
     #for both table in admin dashboard
@@ -113,39 +119,37 @@ def doctorclick_view(request):
 def doctor_signup_view(request):
     userForm = forms.DoctorSignupForm()
     doctorForm = forms.DoctorForm()
-    mydict = {'userForm':userForm,'doctorForm':doctorForm}
+    mydict = {'userForm': userForm, 'doctorForm': doctorForm}
+
     if request.method == 'POST':
         userForm = forms.DoctorSignupForm(request.POST)
-        doctorForm = forms.DoctorForm(request.POST,request.FILES)
+        doctorForm = forms.DoctorForm(request.POST, request.FILES)
+        
         if userForm.is_valid() and doctorForm.is_valid():
-            user = userForm.save()
+            user = userForm.save(commit=False)
             user.set_password(user.password)
             user.save()
+
             doctor = doctorForm.save(commit=False)
             doctor.user = user
-            doctor = doctor.save()
-        return redirect('doctorlogin')
-    return render(request,'users/doctorsignup.html',context=mydict)
+            doctor.save()
 
-def doctorlogin_view(request):
-    if request.method == "POST":
-        form = forms.DoctorLoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect("doctor-dashboard")
+            print("saved")
+
+            # Authenticating the user after successful signup
+            auth_user = authenticate(username=user.username, password=user.password)
+            if auth_user is not None:
+                login(request, auth_user)
+                messages.success(request, "Registration and Login successful.")
+                print("authenticated")
+                return redirect('doctorlogin')
             else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-    else:
-        form = forms.DoctorLoginForm()
+                messages.error(request, "Unsuccessful login after registration.")
 
-    return render(request=request, template_name="users/doctorlogin.html", context={"login_form": form})
+    return render(request, 'users/doctorsignup.html', context=mydict)
+
+
+
 
 def doctor_dashboard_view(request):
     # Information for card display
